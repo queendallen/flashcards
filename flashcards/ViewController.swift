@@ -19,9 +19,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var frontLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var prevButton: UIButton!
+    @IBOutlet weak var card: UIView!
     
     var flashcards = [Flashcard]()
     var currentIndex = 0
+    var buttonTapped = ""
     
     override func viewDidLoad() { 
         super.viewDidLoad()
@@ -30,7 +32,7 @@ class ViewController: UIViewController {
         readSavedFlashcards()
         
         if flashcards.count == 0 {
-            updateFlashcard(question: "What's the capital of Brazil?", answer: "Brasilia" )
+            updateFlashcard(question: "Where do jack o' lanterns originate?", answer: "Ireland" )
         } else{
             updateLabels()
             updateNextPrevButtons()
@@ -38,23 +40,22 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTapOnFlashcard(_ sender: Any) {
-        if frontLabel.isHidden == true {
-            frontLabel.isHidden = false
-        } else {
-            frontLabel.isHidden = true
-        }
+        flipFlashcard()
     }
     
+    
     @IBAction func didTapOnNext(_ sender: Any) {
+        buttonTapped = "next"
         currentIndex = currentIndex + 1
-        updateLabels()
         updateNextPrevButtons()
+        animateCardOut()
     }
     
     @IBAction func didTapOnPrev(_ sender: Any) {
+        buttonTapped = "prev"
         currentIndex = currentIndex - 1
-        updateLabels()
         updateNextPrevButtons()
+        animateCardOut()
     }
     
     
@@ -102,6 +103,43 @@ class ViewController: UIViewController {
         UserDefaults.standard.set(dictionaryArray, forKey: "flashcards")
         
         print("Flashcards saved to UserDefaults")
+    }
+    
+    func flipFlashcard(){
+        UIView.transition(with: card, duration: 0.3, options: .transitionFlipFromRight, animations: {
+            if self.frontLabel.isHidden == true {
+                self.frontLabel.isHidden = false
+            } else {
+                self.frontLabel.isHidden = true
+            }
+        })
+    }
+    
+    func animateCardIn(){
+        if buttonTapped == "next"{
+            card.transform = CGAffineTransform.identity.translatedBy(x: 300.0, y: 0.0)
+        } else if buttonTapped == "prev"{
+            card.transform = CGAffineTransform.identity.translatedBy(x: -300.0, y: 0.0)
+        }
+        UIView.animate(withDuration: 0.3){
+            self.card.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func animateCardOut(){
+        if self.buttonTapped == "next"{
+            UIView.animate(withDuration: 0.3, animations: {
+                self.card.transform = CGAffineTransform.identity.translatedBy(x: -300.0, y: 0.0)}, completion: { finished in
+                    self.updateLabels()
+                    self.animateCardIn()
+            })
+        } else if buttonTapped == "prev"{
+            UIView.animate(withDuration: 0.3, animations: {
+                self.card.transform = CGAffineTransform.identity.translatedBy(x: 300.0, y: 0.0)}, completion: { finished in
+                    self.updateLabels()
+                    self.animateCardIn()
+            })
+        }
     }
     
     func readSavedFlashcards(){
