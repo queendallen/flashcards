@@ -43,7 +43,6 @@ class ViewController: UIViewController {
         flipFlashcard()
     }
     
-    
     @IBAction func didTapOnNext(_ sender: Any) {
         buttonTapped = "next"
         currentIndex = currentIndex + 1
@@ -58,11 +57,8 @@ class ViewController: UIViewController {
         animateCardOut()
     }
     
-    
     func updateFlashcard(question: String, answer: String){
         let flashcard = Flashcard(question: question, answer: answer)
-        //frontLabel.text = question
-        //backLabel.text = answer
         flashcards.append(flashcard)
         
         print(":) Added new flashcard")
@@ -94,15 +90,6 @@ class ViewController: UIViewController {
         let currentFlashcard = flashcards[currentIndex]
         frontLabel.text = currentFlashcard.question
         backLabel.text = currentFlashcard.answer
-    }
-    
-    func saveAllFlashcardsToDisk(){
-        let dictionaryArray = flashcards.map { (card) -> [String: String] in return ["question": card.question, "answer": card.answer]
-        }
-        
-        UserDefaults.standard.set(dictionaryArray, forKey: "flashcards")
-        
-        print("Flashcards saved to UserDefaults")
     }
     
     func flipFlashcard(){
@@ -140,6 +127,15 @@ class ViewController: UIViewController {
                     self.animateCardIn()
             })
         }
+    }
+    
+    func saveAllFlashcardsToDisk(){
+        let dictionaryArray = flashcards.map { (card) -> [String: String] in return ["question": card.question, "answer": card.answer]
+        }
+        
+        UserDefaults.standard.set(dictionaryArray, forKey: "flashcards")
+        
+        print("Flashcards saved to UserDefaults")
     }
     
     func readSavedFlashcards(){

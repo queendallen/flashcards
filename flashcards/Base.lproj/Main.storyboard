@@ -107,13 +107,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="didTapOnDone:" destination="XZU-rS-EeB" eventType="editingDidEnd" id="Td9-Sb-D1T"/>
-                                    <action selector="questionTxt:" destination="jen-Fp-TRK" eventType="editingDidEnd" id="UyE-mY-gQA"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Answer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BcP-yx-pje">
-                                <rect key="frame" x="55" y="169" width="264" height="30"/>
+                                <rect key="frame" x="55" y="149" width="264" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -142,7 +138,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GoV-b6-uKO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="jen-Fp-TRK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1634.4000000000001" y="27.436281859070466"/>
         </scene>
